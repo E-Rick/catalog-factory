@@ -1,0 +1,30 @@
+[data-theme="dark"] {
+--colors-black: #111111;
+--colors-white: rgb(255, 255, 255);
+--colors-current: currentColor;
+--colors-inherit: inherit;
+--colors-transparent: transparent;
+--colors-background: var(--colors-black);
+--colors-backgroundSecondary: #161616;
+--colors-backgroundTertiary: #1b1b1b;
+--colors-foreground: rgb(255, 255, 255);
+--colors-foregroundSecondary: rgba(255, 255, 255, 0.1);
+--colors-foregroundSecondaryHover: rgba(255, 255, 255, 0.15);
+--colors-foregroundTertiary: rgba(255, 255, 255, 0.04);
+--colors-groupBackground: rgb(10, 10, 10);
+--colors-groupBorder: rgba(255, 255, 255, 0);
+--colors-text: var(--colors-white);
+--colors-textPrimary: #F2F2F2;
+--colors-textSecondary: #CDCDCD;
+--colors-textTertiary: #ABABAB;
+--colors-yellow: #FFC061;
+--colors-green: #262F22
+--colors-red: #FF6466;
+
+--fonts-mono: "Liberation Mono",
+  "Courier New", monospace;
+--fonts-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+}

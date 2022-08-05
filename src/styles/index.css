@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400;500;600;700;800;900&display=swap');
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	font-family: var(--fonts-mono);
+	background: var(--colors-black);
+	color: var(--colors-text);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: auto;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
+}
