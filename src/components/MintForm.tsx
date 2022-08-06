@@ -1,68 +1,56 @@
 import {
 	Box,
-	Card,
 	Stack,
 	FieldSet,
 	Input,
 	Textarea,
-	MediaPicker,
 	Button,
-	FileInput,
-	IconClose,
-	VisuallyHidden,
-	Text,
 } from 'degen'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import React, { useState } from 'react'
-
-type Image = 'image/jpg' | 'image/jpeg' | 'image/png' | 'image/webp' | 'image/svg+xml' | 'image/tiff' | 'image/gif'
-type Audio = 'audio/wav' | 'audio/wave' | 'audio/x-wav' | 'audio/aiff'
-
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
+import { MediaPicker } from './MediaPicker.tsx'
+import { useAccount } from 'wagmi'
 interface IFormInput {
 	name: string
 	description: string
-	image: string
+	song: File
+	coverImage: File
 	price: number
-	coverImage: string
-	song: Audio
+	findersFee: number
 	sellerFundRecipient: string
 }
 
 const MintForm = () => {
+	const {address} = useAccount()
+	// todo: form validation
+	const methods = useForm()
 	const {
 		register,
-		watch,
 		handleSubmit,
+		setValue, reset,
 		formState: { errors },
 	} = useForm<IFormInput>()
 	const [result, setResult] = useState('')
-	const onSubmit: SubmitHandler<IFormInput> = data => setResult(JSON.stringify(data))
-	console.log('errors: ', errors)
-	// const onChange = e => {
-	// 	const file = e.target.files[0]
-	// 	const storageRef = app.storage().ref()
-	// 	const fileRef = storageRef.child(file.name)
-	// 	fileRef.put(file).then(() => {
-	// 		console.log('Uploaded a file')
-	// 	})
-	// }
+	const onSubmit: SubmitHandler<IFormInput> = data => {
+		console.log(data)
+	}
 
-	// const onSubmitFile = data => {
-	// 	console.log(data)
-	// }
+	useEffect(()=> {
+		register("coverImage");
+		register("song")
+	},[])
 
-	console.log('name: ', watch('name')) // watch input value by passing the name of it
-	console.log('price: ', watch('price')) // watch input value by passing the name of it
 	return (
 		<Box display="grid" gap="8" marginX="8" margin="8">
+			<FormProvider {...methods} > 
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<Stack direction="vertical" space="8">
 					<Stack direction="horizontal" space="4">
 						<Stack space="10">
 							<FieldSet legend="Create a song">
-								<Input label="Song title" required placeholder="Keep it Heady" {...register('name')} />
-								<Textarea label="Description" {...register('description')}></Textarea>
-								<Input
+								<Input id='name' label="Song title" required placeholder="Keep it Heady" {...register('name')} />
+								<Textarea id='description' label="Description" {...register('description')}></Textarea>
+								{/* todo: change out the suffix to matic when network is switched */}
+								<Input id='price'
 									label="Price"
 									step="0.000001"
 									placeholder="0.01"
@@ -70,25 +58,51 @@ const MintForm = () => {
 									type="number"
 									{...register('price')}
 								/>
-								<input type="file" name="song" ref={register} {...register('song')} />
-
 								<Input
+									id='finders-fee'
+									label="Finder's Fee"
+									step="1"
+									placeholder="5"
+									min={0}
+									suffix="%"
+									type="number"
+									{...register('findersFee')}
+								/>
+								{/* <input type="file" name="song" ref={register} {...register('song')} /> */}
+								{/* todo: add media player to start music */}
+								<MediaPicker id='song' compact maxSize={20} accept='audio/wav, audio/mp3, audio/wave, audio/mpeg' label='Upload your sound' onError={e => console.log(e)} onChange={e => {
+									console.log('Audio:',e)
+									setValue('song', e)
+								}} name='song' />
+								{/* todo: display dropzone/cover image preview for mobile view  */}
+								<MediaPicker id='cover-image' compact accept='image/jpeg, image/png, image/webp' label='Cover image' onError={e => console.log(e)} onChange={e => { 
+								console.log('Cover Image:',e)
+									setValue('coverImage', e)}} />
+								
+								<Input id='seller-fund-recipient'
 									description="The address that will receive any withdrawals and royalties. It can be your personal wallet, a multisignature wallet, or an external splits contract."
 									label="Seller fund recipient"
-									placeholder="0xA0Cf…251e"
+									placeholder={address ?? "0xA0Cf…251e"}
 									{...register('sellerFundRecipient')}
 								/>
 							</FieldSet>
 							<Box marginTop="8">
-								<p>{result}</p>
+								{/* todo: change button display to connect wallet if no acc and add minting loading animation */}
 								<Button width="full" type="submit">
 									Mint song
 								</Button>
 							</Box>
 						</Stack>
+						
+			{/* <Card>
+							<MediaPicker accept='image/jpeg, image/png, image/webp' label='Cover image' onChange={e => {
+								setValue('coverImage', e)
+							}} />
+			</Card> */}
 					</Stack>
-				</Stack>
 			</form>
+			</FormProvider>
+
 		</Box>
 	)
 }
