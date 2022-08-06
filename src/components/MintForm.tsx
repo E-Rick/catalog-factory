@@ -56,16 +56,13 @@ const MintForm = () => {
 	} = useForm<IFormInput>()
 	
 	const onSubmit: SubmitHandler<IFormInput> = async data => {
-		console.log(data)
 		setLoading(true)
 		const metadata = createMusicMetadata(data)
-		console.log("metadata", metadata)
 		// Validate fields
 		// Store the metadata and get updated metadata
 		const client = new NFTStorage({ token: process.env.NEXT_PUBLIC_API_KEY })
 		const ipfs = await client.store(metadata)
 
-		console.log('NFT data stored!')
 		console.log('IPFS URL for the metadata:', ipfs.url)
 
 		const askPrice = utils.parseEther(data.askPrice).toString()
@@ -75,8 +72,6 @@ const MintForm = () => {
 	}
 
 	const deployCatalog = async (metadata, curatorName, sellerFundsRecipient, askPrice, findersFee) => {
-		console.log("askPrice", askPrice)
-		console.log("FINDERS FEE BPS", findersFee)
 
 		await contract
 			.createCatalog(
