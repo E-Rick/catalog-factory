@@ -4,12 +4,13 @@ import {
 	FieldSet,
 	Input,
 	Textarea,
-	Button,
 } from 'degen'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import React, { useEffect, useState } from 'react'
 import { MediaPicker } from './MediaPicker.tsx'
 import { useAccount } from 'wagmi'
+import MintSongButton from '@/components/MintSongButton'
+
 interface IFormInput {
 	name: string
 	description: string
@@ -87,10 +88,7 @@ const MintForm = () => {
 								/>
 							</FieldSet>
 							<Box marginTop="8">
-								{/* todo: change button display to connect wallet if no acc and add minting loading animation */}
-								<Button width="full" type="submit">
-									Mint song
-								</Button>
+								<MintSongButton />
 							</Box>
 						</Stack>
 						

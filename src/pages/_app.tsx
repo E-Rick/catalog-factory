@@ -1,6 +1,6 @@
 import { APP_NAME } from '@/lib/consts'
 import { darkTheme, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
-import { AppProps } from 'Next/app'
+import { AppProps } from 'next/app'
 import 'degen/styles'
 import '../styles/index.css'
 import '../styles/theme.scss'
@@ -11,7 +11,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, provider } = configureChains(
-	[chain.mainnet, chain.rinkeby, chain.optimism, chain.polygon, chain.arbitrum],
+	[chain.polygonMumbai],
 	[alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
 )
 
