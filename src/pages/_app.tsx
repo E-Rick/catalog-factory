@@ -1,6 +1,6 @@
 import { APP_NAME } from '@/lib/consts'
 import { darkTheme, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
-import { AppProps } from 'Next/app'
+import { AppProps } from 'next/app'
 import 'degen/styles'
 import '../styles/index.css'
 import '../styles/theme.scss'
