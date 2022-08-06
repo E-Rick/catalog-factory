@@ -20,6 +20,7 @@
 		"nft.storage": "^7.0.0",
 		"react": "18.1.0",
 		"react-dom": "18.1.0",
+		"react-dropzone": "^14.2.2",
 		"react-hook-form": "^7.34.0",
 		"sass": "^1.54.3",
 		"wagmi": "^0.6.0"
