@@ -19,7 +19,7 @@ const contractConfig = {
 }
 
 // read the API key from an environment variable. You'll need to set this before running the example!
-const API_KEY = process.env.NFT_STORAGE_API_KEY
+const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDU0NUY3MmE2RTE4ZTc1REZBMTA3Qjc3REIzNDM1NDNjOTQzMEI0RmQiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY1OTc5NDQwMDc1MCwibmFtZSI6IlpPUkEifQ.9Jv78U50b9Ik3te-AJNcSvMCGPt402uwV6cbQyCzXiU"
 
 interface IFormInput {
 	// song name

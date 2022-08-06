@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Spinner } from 'degen'
 import { useContract, useSigner } from 'wagmi'
-import abi from './abi.json'
+import abi from './contract-abi.json'
 
 const MintSongButton = () => {
 	const [loading, setLoading] = useState(false)
