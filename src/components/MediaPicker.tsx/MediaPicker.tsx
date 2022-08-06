@@ -280,7 +280,6 @@ const RemoveButton = ({ cover, uploading, onClick }: RemoveButtonProps) => {
         alignItems="center"
         as="button"
         borderRadius="full"
-        className={styles.removeButton}
         cursor="pointer"
         disabled={uploading}
         display="flex"
