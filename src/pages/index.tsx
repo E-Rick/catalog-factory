@@ -4,7 +4,8 @@ import MintForm from '@/components/MintForm'
 import { Box, Text } from 'degen'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import contractInterface from '@/utils/contract-abi.json'
-import { usePrepareContractWrite, useContractWrite, useContractRead, useWaitForTransaction } from 'wagmi'
+import getFactoryAddress from '@/utils/getFactoryAddress'
+import { usePrepareContractWrite, useContractWrite, useContractRead, useWaitForTransaction, useNetwork } from 'wagmi'
 
 const contractConfig = {
 	addressOrName: '0x86fbbb1254c39602a7b067d5ae7e5c2bdfd61a30',
@@ -16,6 +17,7 @@ const Home: NextPage = () => {
 		...contractConfig,
 		functionName: 'mint',
 	})
+	const { chain } = useNetwork();
 
 	const {
 		data: mintData,
@@ -32,6 +34,8 @@ const Home: NextPage = () => {
 	} = useWaitForTransaction({
 		hash: mintData?.hash,
 	})
+	console.log('USE CONTRACT ADDRESS FOR CHAIN: ', getFactoryAddress(chain?.id))
+
 
 	return (
 		<>
@@ -39,7 +43,7 @@ const Home: NextPage = () => {
 				<Text size="large">{APP_NAME}</Text>
 				<ConnectButton chainStatus="icon" accountStatus="avatar" />
 			</Box>
-			<MintForm />
+			<MintForm contractAddress={getFactoryAddress(chain?.id)} />
 		</>
 	)
 }

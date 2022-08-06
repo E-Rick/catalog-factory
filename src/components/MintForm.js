@@ -2,19 +2,21 @@ import { Box, Stack, FieldSet, Input, Textarea } from 'degen'
 import { useForm, FormProvider } from 'react-hook-form'
 import React, { useEffect, useState } from 'react'
 import { MediaPicker } from './MediaPicker.tsx'
-import { useAccount, useContract, useSigner } from 'wagmi'
+import { useAccount, useContract, useNetwork, useSigner } from 'wagmi'
 import MintSongButton from '@/components/MintSongButton'
 import { NFTStorage } from 'nft.storage'
 import contractInterface from './MintSongButton/contract-abi.json'
 import createMusicMetadata from '@/utils/createMusicMetadata'
 import { utils } from 'ethers'
 
-const MintForm = () => {
+const MintForm = ({ contractAddress }) => {
 	const { address } = useAccount()
 	const [loading, setLoading] = useState(false)
 	const { data: signer } = useSigner()
+
+	console.log('MintForm', contractAddress)
 	const contract = useContract({
-		addressOrName: '0x83439E53bfcD6398B9b315f96a5dB689B82bfa0A',
+		addressOrName: contractAddress,
 		contractInterface: contractInterface,
 		signerOrProvider: signer,
 	})
@@ -98,7 +100,7 @@ const MintForm = () => {
 									id="song"
 									compact
 									maxSize={20}
-									accept="audio/wav, audio/mp3, audio/wave, audio/mpeg"
+									accept="audio/wav"
 									label="Upload your sound"
 									onError={e => console.log(e)}
 									onChange={e => {
@@ -110,7 +112,7 @@ const MintForm = () => {
 								<MediaPicker
 									id="image"
 									compact
-									accept="image/jpeg, image/png, image/webp"
+									accept="image/jpeg, image/png, image/webp, image/gif"
 									label="Cover image"
 									onError={e => console.log(e)}
 									onChange={e => {
