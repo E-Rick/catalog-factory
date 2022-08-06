@@ -22,7 +22,13 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
 	return (
 		<ThemeProvider defaultMode="dark" defaultAccent="yellow">
 			<WagmiConfig client={wagmiClient}>
-				<RainbowKitProvider chains={chains} theme={darkTheme()}>
+				<RainbowKitProvider chains={chains} theme={darkTheme({
+					accentColor: '#FFC061',
+					accentColorForeground: 'white',
+					borderRadius: 'small',
+					fontStack: 'system',
+					overlayBlur: 'small',
+				})}>
 					<Component {...pageProps} />
 				</RainbowKitProvider>
 			</WagmiConfig>
