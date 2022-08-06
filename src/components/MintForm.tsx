@@ -13,6 +13,8 @@ import { useAccount, useContract, useContractWrite, usePrepareContractWrite, use
 import MintSongButton from '@/components/MintSongButton'
 import { NFTStorage } from 'nft.storage'
 import contractInterface from './MintSongButton/contract-abi.json'
+import createMusicMetadata from '@/utils/createMusicMetadata'
+import { ethers, utils } from 'ethers'
 const contractConfig = {
 	addressOrName: '0xc1bD7001E54e8854c0Cd48178a06D70A245Bd73a',
 	contractInterface: contractInterface,
@@ -37,10 +39,10 @@ interface IFormInput {
 
 const MintForm = () => {
 	const {address} = useAccount()
-	const { data: signer } = useSigner()
 	const [loading,setLoading] = useState(false)
+	const { data: signer } = useSigner()
 	const contract = useContract({
-		addressOrName: '0xc1bD7001E54e8854c0Cd48178a06D70A245Bd73a',
+		addressOrName: '0x83439E53bfcD6398B9b315f96a5dB689B82bfa0A',
 		contractInterface: contractInterface,
 		signerOrProvider: signer,
 	})
@@ -55,16 +57,41 @@ const MintForm = () => {
 	
 	const onSubmit: SubmitHandler<IFormInput> = async data => {
 		console.log(data)
-
+		setLoading(true)
+		const metadata = createMusicMetadata(data)
+		console.log("metadata", metadata)
 		// Validate fields
 		// Store the metadata and get updated metadata
-		const client = new NFTStorage({ token: API_KEY })
-		// const metadata = await client.store(data)
+		const client = new NFTStorage({ token: process.env.NEXT_PUBLIC_API_KEY })
+		const ipfs = await client.store(metadata)
 
-		// console.log('NFT data stored!')
-		// console.log('IPFS URL for the metadata:', metadata.url)
-		// console.log('metadata.json contents:\n', metadata.data)
-		// console.log('metadata.json with IPFS gateway URLs:\n', metadata.embed())
+		console.log('NFT data stored!')
+		console.log('IPFS URL for the metadata:', ipfs.url)
+
+		const askPrice = utils.parseEther(data.askPrice).toString()
+		const findersFee = parseInt(data.findersFeeBps || 0) * 100
+		await deployCatalog(ipfs.url, metadata.name, data.sellerFundsRecipient, askPrice, findersFee)
+		setLoading(false)
+	}
+
+	const deployCatalog = async (metadata, curatorName, sellerFundsRecipient, askPrice, findersFee) => {
+		console.log("askPrice", askPrice)
+		console.log("FINDERS FEE BPS", findersFee)
+
+		await contract
+			.createCatalog(
+				curatorName,
+				metadata,
+				askPrice,
+				sellerFundsRecipient || address,
+				findersFee,
+				{ value: 500000000000000 }
+			)
+			.then(async tx => {
+				const receipt = await tx.wait()
+			})
+			.catch(console.error)
+		
 	}
 
 	useEffect(()=> {
@@ -122,7 +149,7 @@ const MintForm = () => {
 								{/* <Button width="full" type="submit">
 									Mint song
 								</Button> */}
-								<MintSongButton />
+								<MintSongButton loading={loading} />
 							</Box>
 						</Stack>
 					</Stack>
