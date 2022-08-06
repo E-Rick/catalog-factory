@@ -25,12 +25,6 @@ const Home: NextPage = () => {
 		error: mintError,
 	} = useContractWrite(contractWriteConfig)
 
-	// const { data: totalSupplyData } = useContractRead({
-	// 	...contractConfig,
-	// 	functionName: 'totalSupply',
-	// 	watch: true,
-	// })
-
 	const {
 		data: txData,
 		isSuccess: txSuccess,
@@ -41,7 +35,7 @@ const Home: NextPage = () => {
 
 	return (
 		<>
-			<Box display="flex" padding="6" marginBottom="40" alignItems="center" justifyContent="space-between">
+			<Box display="flex" padding="6" marginBottom="12" alignItems="center" justifyContent="space-between">
 				<Text size="large">{APP_NAME}</Text>
 				<ConnectButton chainStatus="icon" accountStatus="avatar" />
 			</Box>
