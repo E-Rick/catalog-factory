@@ -5,9 +5,9 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 type Visibility = 'always' | 'connected' | 'not_connected'
 
 const ConnectWallet: FC<{ show?: Visibility }> = ({ show = 'always' }) => {
-	const { data: account } = useAccount()
+	const { address } = useAccount()
 
-	if ((show == 'connected' && !account?.address) || (show == 'not_connected' && account?.address)) return null
+	if ((show == 'connected' && !address) || (show == 'not_connected' && address)) return null
 
 	return <ConnectButton />
 }
