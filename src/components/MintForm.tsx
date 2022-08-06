@@ -14,6 +14,7 @@ import {
 } from 'degen'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React, { useState } from 'react'
+import MintSongButton from '@/components/MintSongButton'
 
 interface IFormInput {
 	name: string
@@ -101,9 +102,7 @@ const MintForm = () => {
 							</FieldSet>
 							<Box marginTop="8">
 								<p>{result}</p>
-								<Button width="full" type="submit">
-									Mint song
-								</Button>
+								<MintSongButton />
 							</Box>
 						</Stack>
 					</Stack>
