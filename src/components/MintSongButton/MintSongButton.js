@@ -7,7 +7,7 @@ const MintSongButton = () => {
 	const [loading, setLoading] = useState(false)
 	const { data: signer } = useSigner()
 	const contract = useContract({
-		addressOrName: '0xc1bD7001E54e8854c0Cd48178a06D70A245Bd73a',
+		addressOrName: '0x83439E53bfcD6398B9b315f96a5dB689B82bfa0A',
 		contractInterface: abi,
 		signerOrProvider: signer,
 	})
@@ -15,7 +15,14 @@ const MintSongButton = () => {
 	const handleClick = async () => {
 		setLoading(true)
 		await contract
-			.createCatalog('My Catalog', 'MUSIC')
+			.createCatalog(
+				'My Catalog',
+				'ipfs://bafkreidfgdtzedh27qpqh2phb2r72ccffxnyoyx4fibls5t4jbcd4iwp6q',
+				100,
+				'0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38',
+				100,
+				{ value: 500000000000000 }
+			)
 			.then(async tx => {
 				const receipt = await tx.wait()
 			})
@@ -25,13 +32,9 @@ const MintSongButton = () => {
 
 	return (
 		<>
-			{loading ? (
-				<Spinner />
-			) : (
-				<Button width="full" onClick={handleClick}>
-					Mint song
-				</Button>
-			)}
+			<Button width="full" onClick={handleClick} disabled={loading}>
+				{loading ? <Spinner /> : 'Mint song'}
+			</Button>
 		</>
 	)
 }

@@ -59,12 +59,12 @@ const MintForm = () => {
 		// Validate fields
 		// Store the metadata and get updated metadata
 		const client = new NFTStorage({ token: API_KEY })
-		const metadata = await client.store(data)
+		// const metadata = await client.store(data)
 
-		console.log('NFT data stored!')
-		console.log('IPFS URL for the metadata:', metadata.url)
-		console.log('metadata.json contents:\n', metadata.data)
-		console.log('metadata.json with IPFS gateway URLs:\n', metadata.embed())
+		// console.log('NFT data stored!')
+		// console.log('IPFS URL for the metadata:', metadata.url)
+		// console.log('metadata.json contents:\n', metadata.data)
+		// console.log('metadata.json with IPFS gateway URLs:\n', metadata.embed())
 	}
 
 	useEffect(()=> {
@@ -119,9 +119,9 @@ const MintForm = () => {
 								/>
 							</FieldSet>
 							<Box marginTop="8">
-								<Button width="full" type="submit">
+								{/* <Button width="full" type="submit">
 									Mint song
-								</Button>
+								</Button> */}
 								<MintSongButton />
 							</Box>
 						</Stack>
