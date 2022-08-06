@@ -1,24 +1,13 @@
-import { Box, Stack, FieldSet, Input, Textarea, Button } from 'degen'
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import { Box, Stack, FieldSet, Input, Textarea } from 'degen'
+import { useForm, FormProvider } from 'react-hook-form'
 import React, { useEffect, useState } from 'react'
 import { MediaPicker } from './MediaPicker.tsx'
-import {
-	useAccount,
-	useContract,
-	useContractWrite,
-	usePrepareContractWrite,
-	useSigner,
-	useWaitForTransaction,
-} from 'wagmi'
+import { useAccount, useContract, useSigner } from 'wagmi'
 import MintSongButton from '@/components/MintSongButton'
 import { NFTStorage } from 'nft.storage'
 import contractInterface from './MintSongButton/contract-abi.json'
 import createMusicMetadata from '@/utils/createMusicMetadata'
-import { ethers, utils } from 'ethers'
-const contractConfig = {
-	addressOrName: '0xc1bD7001E54e8854c0Cd48178a06D70A245Bd73a',
-	contractInterface: contractInterface,
-}
+import { utils } from 'ethers'
 
 const MintForm = () => {
 	const { address } = useAccount()
@@ -41,8 +30,6 @@ const MintForm = () => {
 	const onSubmit = async data => {
 		setLoading(true)
 		const metadata = createMusicMetadata(data)
-		// Validate fields
-		// Store the metadata and get updated metadata
 		const client = new NFTStorage({ token: process.env.NEXT_PUBLIC_API_KEY })
 		const ipfs = await client.store(metadata)
 
@@ -83,16 +70,6 @@ const MintForm = () => {
 									required
 									placeholder="Keep it Heady"
 									{...register('name')}
-								/>
-								<Input
-									id="token"
-									prefix="$"
-									maxLength={5}
-									label="Token"
-									textTransform="uppercase"
-									required
-									placeholder="MUSIC"
-									{...register('token')}
 								/>
 								<Textarea id="description" label="Description" {...register('description')}></Textarea>
 								{/* todo: change out the suffix to matic when network is switched */}
@@ -151,9 +128,6 @@ const MintForm = () => {
 								/>
 							</FieldSet>
 							<Box marginTop="8">
-								{/* <Button width="full" type="submit">
-									Mint song
-								</Button> */}
 								<MintSongButton loading={loading} />
 							</Box>
 						</Stack>
