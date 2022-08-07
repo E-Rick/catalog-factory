@@ -2,11 +2,11 @@
 
 > Curation as a Public Good
 
-- Inspired by [Catalog](https://beta.catalog.works/): 
-- powered by [smart contracts](https://github.com/SweetmanTech/catalog-works)
+- music nfts + Zora V3. All minted music nfts are automatically listed for sale on [Zora V3 Asks V1.1](https://docs.zora.co/docs/smart-contracts/modules/Asks/zora-v3-asks-v1.1)
 - decentralized music nfts - [music metadata standard](https://www.npmjs.com/package/onchain-music-metadata)
-- music nfts + Zora V3. All minted music nfts are automatically listed for sale on [Zora V3 Asks V1.1](https://docs.zora.co/docs/smart-contracts/modules/Asks/zora-v3-asks-v1.1).
-- Ethereum, Polygon, Rinkeby, Mumbai (see below).
+- inspired by [Catalog works](https://beta.catalog.works/)
+- powered by [smart contracts](https://github.com/SweetmanTech/catalog-works)
+- Ethereum, Polygon, Rinkeby & Mumbai (see below).
 
 Live app: https://catalog-factory-rose.vercel.app/
 
