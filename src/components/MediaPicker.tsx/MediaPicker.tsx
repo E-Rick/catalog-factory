@@ -190,7 +190,7 @@ const Media = ({ cover, name, type, url }: MediaProps) => {
     return <Box alt={name} as="img" src={url} {...boxProps} />
   else if (type.includes('audio'))
     //todo: add audio visual and play button
-    return <Box as="audio" autoPlay muted src={url} {...boxProps} />
+    return <Box as="audio" controls autoPlay muted src={url} {...boxProps} />
   return null
 }
 
