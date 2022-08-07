@@ -11,7 +11,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, provider } = configureChains(
-	[chain.polygonMumbai],
+	[chain.polygonMumbai, chain.rinkeby],
 	[alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
 )
 
@@ -22,7 +22,13 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
 	return (
 		<ThemeProvider defaultMode="dark" defaultAccent="yellow">
 			<WagmiConfig client={wagmiClient}>
-				<RainbowKitProvider chains={chains} theme={darkTheme()}>
+				<RainbowKitProvider chains={chains} theme={darkTheme({
+					accentColor: '#FFC061',
+					accentColorForeground: 'white',
+					borderRadius: 'small',
+					fontStack: 'system',
+					overlayBlur: 'small',
+				})}>
 					<Component {...pageProps} />
 				</RainbowKitProvider>
 			</WagmiConfig>
