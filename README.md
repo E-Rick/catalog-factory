@@ -1,37 +1,22 @@
-# dApp Starter
+# Music NFTs - Catalog Factory
 
-> The template I use to kickstart all my web3 apps.
+> Inspired by [Catalog](https://beta.catalog.works/): Curation as a Public Good
+> powered by these [smart contracts](https://github.com/SweetmanTech/catalog-works)
+> decentralized music nfts - [music metadata standard](https://www.npmjs.com/package/onchain-music-metadata)
+> music nfts + Zora V3. All minted music nfts are automatically listed for sale on [Zora V3 Asks V1.1](https://docs.zora.co/docs/smart-contracts/modules/Asks/zora-v3-asks-v1.1).
+> Ethereum, Polygon, Rinkeby, Mumbai (see below).
 
-This starter kit is composed of Next.js and Tailwind CSS, with RainbowKit, ethers, & wagmi for all your web3 needs. It uses Typescript and an opinionated directory structure for maximum dev confy-ness.
+## Deployments
 
-## Getting Started
+-   [Ethereum mainnet](https://etherscan.io/address/0x847058B7f0df8F8d76c03e3af853CB17284DcF75#code)
+-   [Polygon mainnet](https://polygonscan.com/address/0xf79a182E8D10f696B54AfE9d86dF5f7E34aa1F88#code)
+-   [Rinkeby testnet](https://rinkeby.etherscan.io/address/0x4270B8aE2F332615a4DdD09788BC60d3cFde0Ea4#code)
+-   [Mumbai testnet](https://mumbai.polygonscan.com/address/0x83439E53bfcD6398B9b315f96a5dB689B82bfa0A#code)
 
-First, install dependencies with `yarn install`. Then, initialize the env file with `cp .env.example .env`, and add your Infura project id. Finally, run the development server with `yarn dev`.
+## Team
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about the components of this kit, take a look at the following resources:
-
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
--   [Tailwind CSS Documentation](https://tailwindcss.com/docs/) - learn about Tailwind, and browse through the included classes.
--   [Ethers Documentation](https://docs.ethers.io/v5/) - learn about Ethers features and API.
--   [wagmi Documentation](https://wagmi.sh/) - learn about wagmi features and API.
--   [RainbowKit Documentation](https://www.rainbowkit.com/docs/introduction) - learn about RainbowKit's features and API.
-
-## Deployment
-
-The easiest way to deploy your Next.js app is to use [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js), from the creators of Next.js.
-
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+-   sweetman.eth - smart contract engineer
+-   wrecks.eth - UI / front-end engineer
 
 ## License
 
