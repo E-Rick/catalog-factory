@@ -23,7 +23,7 @@ Live app: https://catalog-factory-rose.vercel.app/
 ## Team
 
 -   sweetman.eth - smart contract engineer
--   wrecks.eth - UI / front-end engineer
+-   wrecs.eth - full-stack engineer
 
 ## License
 
