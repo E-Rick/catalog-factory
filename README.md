@@ -8,6 +8,9 @@
 - music nfts + Zora V3. All minted music nfts are automatically listed for sale on [Zora V3 Asks V1.1](https://docs.zora.co/docs/smart-contracts/modules/Asks/zora-v3-asks-v1.1).
 - Ethereum, Polygon, Rinkeby, Mumbai (see below).
 
+![Cover Image (3)](https://user-images.githubusercontent.com/23249402/183305067-10d10e98-0fad-485a-bdab-b82d49a19a1d.png)
+
+
 ## Deployments
 
 -   [Ethereum mainnet](https://etherscan.io/address/0x847058B7f0df8F8d76c03e3af853CB17284DcF75#code)
