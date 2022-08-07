@@ -7,7 +7,8 @@ type Image =
   | 'image/jpeg'
   | 'image/png'
   | 'image/webp'
-  | 'image/jpeg, image/png, image/webp'
+  | 'image/gif'
+  | 'image/jpeg, image/png, image/webp, image/gif'
 type Audio =
   | 'audio/wav'
   | 'audio/mp3'
