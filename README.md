@@ -1,10 +1,10 @@
 # Music NFTs - Catalog Factory
 
-> powered by smart contracts [found here](https://github.com/SweetmanTech/catalog-works)
-> Curation as a Public Good
-> decentralized music nfts - follows [music metadata standards](https://www.npmjs.com/package/onchain-music-metadata)
-> music nfts + Zora V3
-> Ethereum, Polygon, Rinkeby, Mumbai
+> Inspired by [Catalog](https://beta.catalog.works/): Curation as a Public Good
+> powered by these [smart contracts](https://github.com/SweetmanTech/catalog-works)
+> decentralized music nfts - [music metadata standard](https://www.npmjs.com/package/onchain-music-metadata)
+> music nfts + Zora V3. All minted music nfts are automatically listed for sale on [Zora V3 Asks V1.1](https://docs.zora.co/docs/smart-contracts/modules/Asks/zora-v3-asks-v1.1).
+> Ethereum, Polygon, Rinkeby, Mumbai (see below).
 
 ## Deployments
 
