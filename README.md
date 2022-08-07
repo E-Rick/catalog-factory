@@ -2,6 +2,7 @@
 
 > Curation as a Public Good
 
+- [Official submission](https://ethglobal.com/showcase/catalog-factory-8jx5g) for Zora Hackathon at ETH Global. 
 - music nfts + Zora V3. All minted music nfts are automatically listed for sale on [Zora V3 Asks V1.1](https://docs.zora.co/docs/smart-contracts/modules/Asks/zora-v3-asks-v1.1)
 - decentralized music nfts - [music metadata standard](https://www.npmjs.com/package/onchain-music-metadata)
 - inspired by [Catalog works](https://beta.catalog.works/)
