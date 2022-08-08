@@ -1,5 +1,4 @@
 const getFactoryAddress = chainId => {
-	console.log('getFactoryAddress', chainId)
 	if (chainId === 1) {
 		return process.env.NEXT_PUBLIC_ETHEREUM_FACTORY_ADDRESS
 	}
