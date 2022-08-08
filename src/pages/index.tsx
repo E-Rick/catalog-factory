@@ -4,6 +4,7 @@ import MintForm from '@/components/MintForm'
 import { Box, Text } from 'degen'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import getFactoryAddress from '@/utils/getFactoryAddress'
+import getZoraModuleManagerAddress from '@/utils/getZoraModuleManagerAddress'
 import { useNetwork } from 'wagmi'
 
 const Home: NextPage = () => {
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
 				<Text size="large">{APP_NAME}</Text>
 				<ConnectButton chainStatus="icon" accountStatus="avatar" />
 			</Box>
-			<MintForm contractAddress={getFactoryAddress(chain?.id)} />
+			<MintForm contractAddress={getFactoryAddress(chain?.id)} moduleManagerContractAddress={getZoraModuleManagerAddress(chain?.id)} />
 		</>
 	)
 }
