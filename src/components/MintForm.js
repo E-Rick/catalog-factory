@@ -90,7 +90,7 @@ const MintForm = ({ contractAddress, moduleManagerContractAddress }) => {
 	}, [])
 
 	return (
-		<Box display="grid" gap="8" marginX="12" margin="8">
+		<Box justifyContent="center" display="grid" gap="8" marginX="12" margin="8">
 			<FormProvider {...methods}>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Stack direction="horizontal" space="4">
