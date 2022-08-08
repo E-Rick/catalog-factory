@@ -1,8 +1,7 @@
 import { useNetwork, useSigner, useContract, useAccount } from 'wagmi'
 import contractInterface from '@/abi/catalog-factory-abi.json'
 import moduleManagerContractInterface from '@/abi/module-manager-abi.json'
-import getFactoryAddress from '@/utils/getFactoryAddress'
-import getZoraModuleManagerAddress from '@/utils/getZoraModuleManagerAddress'
+import { getFactoryAddress, getZoraModuleManagerAddress } from '@/utils/helpers'
 
 /**
  * Hook to handle the logic to retrieve the correct factory contracts
