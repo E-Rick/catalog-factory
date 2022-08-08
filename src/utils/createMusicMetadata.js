@@ -74,18 +74,18 @@ const createMusicMetadata = data => {
 	music_metadata.losslessAudio = data.song
 	music_metadata.description = data.description
 	const project = {
-		title: data.name, // music nft
+		title: data.name,
 		artwork: {
-			uri: data.image, // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
-			mimeType: '', // image/png
-			nft: '', // music nfts
+			uri: data.image,
+			mimeType: '',
+			nft: '',
 		},
-		description: data.description, // music NFT with data on-chain as Base64 encoded string.
-		type: '', // Single / Album / EP / etc.
-		originalReleaseDate: '', // 04-20-2022
-		recordLabel: '', // sweetman.eth record label
-		publisher: '', // sweetman.eth publishing
-		upc: '', // 03600029145
+		description: data.description,
+		type: '',
+		originalReleaseDate: '',
+		recordLabel: '',
+		publisher: '',
+		upc: '',
 	}
 	music_metadata.project = project
 
