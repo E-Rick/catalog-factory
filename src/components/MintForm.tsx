@@ -1,14 +1,14 @@
-import { Box, Stack, FieldSet, Input, Textarea, Button } from 'degen'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import React, { useEffect, useState } from 'react'
-import { MediaPicker } from './MediaPicker.tsx'
-import { useAccount } from 'wagmi'
-import { NFTStorage } from 'nft.storage'
-import getZoraAsksV1_1Address from '@/utils/getZoraAsksV1_1Address'
 import createMusicMetadata from '@/utils/createMusicMetadata'
+import { Box, Button, FieldSet, Input, Stack, Textarea } from 'degen'
+import { NFTStorage } from 'nft.storage'
+import { useEffect, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useAccount } from 'wagmi'
+import { MediaPicker } from './MediaPicker.tsx'
 
-import { parseEther } from 'ethers/lib/utils'
 import { useFactory } from '@/hooks/useFactory'
+import { parseEther } from 'ethers/lib/utils'
+import { getZoraAsksV1_1Address } from '@/utils/helpers'
 
 export type FormData = {
 	artist: string
@@ -47,15 +47,16 @@ const MintForm = () => {
 
 		console.log('IPFS URL for the metadata:', ipfs.url)
 
+		// askPrice is a number from input type
 		const askPrice = parseEther(data.askPrice.toString() || '0').toString()
-		console.log('askPrice:', askPrice)
 		const isApproved = await checkAskModuleApproved()
 		
-		if (!isApproved) {
+		if (!isApproved) { 
+			console.log('not approved')
 			setMinting(false)
 			return
 		}
-		console.log(askPrice)
+		console.log('deploying catalog')
 		const findersFee = (data.findersFeeBps || 0) * 100
 		await deployCatalog(ipfs.url, metadata.name, data.sellerFundsRecipient, askPrice, findersFee)
 		setMinting(false)
@@ -123,7 +124,7 @@ const MintForm = () => {
 								label="Ask Price"
 								step="0.000001"
 								placeholder="0.01"
-							suffix={chain?.nativeCurrency?.symbol}
+								suffix={chain?.nativeCurrency?.symbol}
 								type="number"
 								{...register('askPrice', {required: true})}
 								error={errors.askPrice?.type === 'required' && 'Ask price is required'}
