@@ -62,12 +62,32 @@ const music_metadata = {
 }
 
 const createMusicMetadata = data => {
-	console.log('CREATING MUSIC METADATA', data)
-
 	music_metadata.name = data.name
+	music_metadata.title = data.name
+	music_metadata.attributes.project = data.name
+	music_metadata.tags = [data.name, data.address]
+	music_metadata.artist = data.address
+	music_metadata.credits = [{ name: data.address, collaboratorType: 'creator' }]
 	music_metadata.image = data.image
+	music_metadata.artwork.uri = data.image
 	music_metadata.animation_url = data.song
+	music_metadata.losslessAudio = data.song
 	music_metadata.description = data.description
+	const project = {
+		title: data.name,
+		artwork: {
+			uri: data.image,
+			mimeType: '',
+			nft: '',
+		},
+		description: data.description,
+		type: '',
+		originalReleaseDate: '',
+		recordLabel: '',
+		publisher: '',
+		upc: '',
+	}
+	music_metadata.project = project
 
 	return music_metadata
 }
