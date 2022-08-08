@@ -88,6 +88,7 @@ const MintForm = () => {
 			})
 			.then(async tx => {
 				const receipt = await tx.wait()
+				console.log(receipt)
 			})
 			.catch(console.error)
 	}
@@ -106,14 +107,14 @@ const MintForm = () => {
 							<Input
 								id="artist"
 								label="Artist name"
-								placeholder="Ye"
+								placeholder="Name of artist"
 								{...register('artist', {required: true})}
 								error={errors.artist?.type === 'required' && 'Artist name is required'}
 							/>
 							<Input
 								name="name"
 								label="Song title"
-								placeholder="Runaway"
+								placeholder="Title of song"
 								{...register('name', {required: true})}
 								error={errors.name?.type === 'required' && 'Song tile is required'}
 							/>
