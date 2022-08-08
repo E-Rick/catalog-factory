@@ -6,7 +6,7 @@ import '../styles/index.css'
 import '../styles/theme.scss'
 import '@rainbow-me/rainbowkit/styles.css'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
-import { ThemeProvider } from 'degen'
+import { ThemeProvider, vars } from 'degen'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 
@@ -23,7 +23,7 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
 		<ThemeProvider defaultMode="dark" defaultAccent="yellow">
 			<WagmiConfig client={wagmiClient}>
 				<RainbowKitProvider chains={chains} theme={darkTheme({
-					accentColor: '#FFC061',
+					accentColor: vars.colors.yellow,
 					accentColorForeground: 'white',
 					borderRadius: 'small',
 					fontStack: 'system',
