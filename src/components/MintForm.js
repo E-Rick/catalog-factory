@@ -110,7 +110,7 @@ const MintForm = ({ contractAddress, moduleManagerContractAddress }) => {
 									label="Ask Price"
 									step="0.000001"
 									placeholder="0.01"
-									suffix="MATIC"
+									suffix={chain.nativeCurrency.symbol}
 									type="number"
 									{...register('askPrice')}
 								/>
