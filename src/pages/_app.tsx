@@ -1,4 +1,4 @@
-import { APP_NAME } from '@/lib/consts'
+import { APP_NAME } from '@/utils/consts'
 import { darkTheme, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { AppProps } from 'next/app'
 import 'degen/styles'
@@ -11,8 +11,8 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, provider } = configureChains(
-	[chain.polygon, chain.mainnet, chain.polygonMumbai, chain.rinkeby],
-	[alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
+	[chain.polygonMumbai, chain.polygon, chain.mainnet, chain.rinkeby],
+	[alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MUMBAI }), publicProvider()]
 )
 
 const { connectors } = getDefaultWallets({ appName: APP_NAME, chains })

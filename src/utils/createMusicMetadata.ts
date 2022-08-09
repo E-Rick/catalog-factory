@@ -1,13 +1,15 @@
+import { FormData } from "@/components/MintForm"
+
 const music_metadata = {
-	name: '', // music nft
+	name: '', // artist name - title
 	description: '', // music NFT with data on-chain as Base64 encoded string.
-	image: '', // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
+	image: undefined, // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
 	version: '0.1',
-	title: '', // music nft
-	artist: '', // sweetman.eth
-	duration: 0, // 420
+	title: '', // title of song
+	artist: '', // artist name
+	duration: 0, // length of song as a float
 	mimeType: '', // audio/wav
-	losslessAudio: '', // ipfs://bafybeib2hyqehlrkizobojjhl6x7krll27uffx3zqs7pw3bbg6wz2wpc4m
+	losslessAudio: undefined, // ipfs://bafybeib2hyqehlrkizobojjhl6x7krll27uffx3zqs7pw3bbg6wz2wpc4m
 	trackNumber: 0,
 	genre: '', // classical / jazz / pop / rock / hiphop / etc.
 	tags: [], // ['sagrado', 'cc0', 'el capitan']
@@ -16,11 +18,11 @@ const music_metadata = {
 	license: '', // CC0
 	locationCreated: '', // Bueno Aires, Argentina
 	external_url: '', // https://www.npmjs.com/package/onchain-music-metadata
-	animation_url: '', // ipfs://bafybeib2hyqehlrkizobojjhl6x7krll27uffx3zqs7pw3bbg6wz2wpc4m
+	animation_url: undefined, // ipfs://bafybeib2hyqehlrkizobojjhl6x7krll27uffx3zqs7pw3bbg6wz2wpc4m
 	project: {
-		title: '', // music nft
+		title: '', // title of project
 		artwork: {
-			uri: '', // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
+			uri: undefined, // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
 			mimeType: '', // image/png
 			nft: '', // music nfts
 		},
@@ -33,7 +35,7 @@ const music_metadata = {
 	},
 	isrc: '', // CC-XXX-YY-NNNNN
 	artwork: {
-		uri: '', // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
+		uri: undefined, // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
 		mimeType: '', // image/png
 		nft: '', // music nfts
 	},
@@ -51,7 +53,7 @@ const music_metadata = {
 	publisher: '', // sweetman.eth publishing
 	credits: [], // [{ name: 'sweetman.eth', collaboratorType: 'creator'}]
 	attributes: {
-		artist: '', // sweetman.eth
+		artist: '', // artist name
 		project: '', // Sweets Beats
 		bpm: 0, // 120
 		key: '', // C
@@ -61,35 +63,33 @@ const music_metadata = {
 	},
 }
 
-const createMusicMetadata = data => {
-	music_metadata.name = data.name
-	music_metadata.title = data.name
-	music_metadata.attributes.project = data.name
-	music_metadata.tags = [data.name, data.address]
-	music_metadata.artist = data.address
-	music_metadata.credits = [{ name: data.address, collaboratorType: 'creator' }]
-	music_metadata.image = data.image
-	music_metadata.artwork.uri = data.image
-	music_metadata.animation_url = data.song
-	music_metadata.losslessAudio = data.song
-	music_metadata.description = data.description
-	const project = {
-		title: data.name,
+const createMusicMetadata = ({artist, name, description, song, image}: FormData) => {
+	const metadata = {
+		name: `${artist} - ${name}`,
+		description,
+		mimeType: song.type,
+		image,
+		losslessAudio: song,
+		animation_url: song,
 		artwork: {
-			uri: data.image,
-			mimeType: '',
-			nft: '',
+			uri: image,
+			mimeType: image.type
 		},
-		description: data.description,
-		type: '',
-		originalReleaseDate: '',
-		recordLabel: '',
-		publisher: '',
-		upc: '',
+		attributes: {
+			artist
+		},
+		project: {
+			title: name,
+			artwork: {
+				uri: image,
+				mimeType: image.type
+			},
+			description
+		}
 	}
-	music_metadata.project = project
+	console.log('CREATING MUSIC METADATA', metadata)
 
-	return music_metadata
+	return metadata
 }
 
 export default createMusicMetadata

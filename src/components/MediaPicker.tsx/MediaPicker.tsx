@@ -7,7 +7,8 @@ type Image =
   | 'image/jpeg'
   | 'image/png'
   | 'image/webp'
-  | 'image/jpeg, image/png, image/webp'
+  | 'image/gif'
+  | 'image/jpeg, image/png, image/webp, image/gif'
 type Audio =
   | 'audio/wav'
   | 'audio/mp3'
@@ -52,7 +53,7 @@ type WithCompact = {
 type Props = BaseProps & (WithCompact | WithoutCompact)
 
 export const MediaPicker = ({
-  accept = 'image/jpeg, image/png, image/webp, audio/wav, audio/mp3, audio/wave, audio/mpeg',
+  accept = 'image/jpeg, image/png, image/webp, image/gif, audio/wav, audio/mp3, audio/wave, audio/mpeg',
   autoFocus,
   compact,
   cover,
