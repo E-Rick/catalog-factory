@@ -1,15 +1,14 @@
-import { FormData } from "@/components/MintForm"
+import { FormData } from '@/components/MintForm';
 
 const music_metadata = {
 	name: '', // artist name - title
 	description: '', // music NFT with data on-chain as Base64 encoded string.
-	image: undefined, // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
-	version: '0.1',
-	title: '', // title of song
+	image: '', // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
+	version: 'catalog-20220222',
 	artist: '', // artist name
 	duration: 0, // length of song as a float
 	mimeType: '', // audio/wav
-	losslessAudio: undefined, // ipfs://bafybeib2hyqehlrkizobojjhl6x7krll27uffx3zqs7pw3bbg6wz2wpc4m
+	losslessAudio: '', // ipfs://bafybeib2hyqehlrkizobojjhl6x7krll27uffx3zqs7pw3bbg6wz2wpc4m
 	trackNumber: 0,
 	genre: '', // classical / jazz / pop / rock / hiphop / etc.
 	tags: [], // ['sagrado', 'cc0', 'el capitan']
@@ -18,7 +17,7 @@ const music_metadata = {
 	license: '', // CC0
 	locationCreated: '', // Bueno Aires, Argentina
 	external_url: '', // https://www.npmjs.com/package/onchain-music-metadata
-	animation_url: undefined, // ipfs://bafybeib2hyqehlrkizobojjhl6x7krll27uffx3zqs7pw3bbg6wz2wpc4m
+	animation_url: '', // ipfs://bafybeib2hyqehlrkizobojjhl6x7krll27uffx3zqs7pw3bbg6wz2wpc4m
 	project: {
 		title: '', // title of project
 		artwork: {
@@ -35,7 +34,7 @@ const music_metadata = {
 	},
 	isrc: '', // CC-XXX-YY-NNNNN
 	artwork: {
-		uri: undefined, // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
+		uri: '', // ipfs://bafkreibjsjxxys2pl6wijorije7yixjsw7xlho5krqdimwayyobnybewey
 		mimeType: '', // image/png
 		nft: '', // music nfts
 	},
@@ -61,35 +60,56 @@ const music_metadata = {
 		recordLabel: '', // sweetman.eth record label
 		license: '', // CC0
 	},
-}
+};
 
-const createMusicMetadata = ({artist, name, description, song, image}: FormData) => {
-	const metadata = {
-		name: `${artist} - ${name}`,
+const createMusicMetadata = ({ artist, name, description, song, image, trackNumber, projectArtwork,projectDescription,projectTitle }: FormData) => {
+	const musicMetadata = {
+		name: `${artist} - ${name}`, // artist - song title
 		description,
+		title: name, // title of song
 		mimeType: song.type,
 		image,
 		losslessAudio: song,
 		animation_url: song,
+		version: 'catalog-20220222',
+		duration: 0,
+		trackNumber,
+		genre: '', // classical / jazz / pop / rock / hiphop / etc.
+		tags: [], // ['sagrado', 'cc0', 'el capitan']
+		bpm: 0, // 120
+		key: '', // C
+		license: '', // CC0
+		locationCreated: '', // Bueno Aires, Argentina
+		external_url: '', // https://www.npmjs.com/package/onchain-music-metadata
 		artwork: {
 			uri: image,
-			mimeType: image.type
-		},
-		attributes: {
-			artist
+			mimeType: image.type,
 		},
 		project: {
-			title: name,
+			title: projectTitle,
 			artwork: {
-				uri: image,
-				mimeType: image.type
+				uri: projectArtwork,
+				mimeType: projectArtwork.type,
 			},
-			description
-		}
-	}
-	console.log('CREATING MUSIC METADATA', metadata)
+			description: projectDescription,
+		},
+		attributes: {
+			artist,
+			project: projectTitle, // Sweets Beats
+			bpm: 0, // 120
+			key: '', // C
+			genre: '', // rock / pop / etc.
+			recordLabel: '', // sweetman.eth record label
+			license: '', // CC0
+		},
+		originalReleaseDate: '', // 04-20-2022e
+		recordLabel: '', // sweetman.eth record label
+		publisher: '', // sweetman.eth publishing
+		credits: [], // [{ name: 'sweetman.eth', collaboratorType: 'creator'}]
+	};
+	console.log('CREATING MUSIC METADATA', musicMetadata);
 
-	return metadata
-}
+	return musicMetadata;
+};
 
-export default createMusicMetadata
+export default createMusicMetadata;
