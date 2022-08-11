@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Box, Stack } from 'degen';
-import Image from 'next/image';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { NextLink } from '@/components/NextLink';
 import { APP_NAME } from '@/utils/consts';
