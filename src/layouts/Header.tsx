@@ -29,7 +29,7 @@ export const Header: FC = () => {
 						</NextLink>
 						<Stack direction='horizontal' align='center'>
 							<NextLink href="/create">
-								Create an Edition
+								Create a Music NFT
 							</NextLink>
 							<ConnectButton chainStatus="icon" accountStatus="avatar" />
 						</Stack>
