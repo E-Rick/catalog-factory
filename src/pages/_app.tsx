@@ -10,7 +10,7 @@ import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { ThemeProvider, vars } from 'degen'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
-import { Layout } from '@/layout'
+import { Layout } from '@/layouts'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import NProgress from 'nprogress';
@@ -27,11 +27,11 @@ const wagmiClient = createClient({ autoConnect: true, connectors, provider })
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
 	const router = useRouter();
 
-  useEffect(() => {
-    router.events.on('routeChangeStart', () =>  NProgress.start());
-    router.events.on('routeChangeComplete', () =>  NProgress.done());
-    router.events.on('routeChangeError', () =>  NProgress.done());
-  }, []);
+	useEffect(() => {
+		router.events.on('routeChangeStart', () => NProgress.start());
+		router.events.on('routeChangeComplete', () => NProgress.done());
+		router.events.on('routeChangeError', () => NProgress.done());
+	}, []);
 
 	return (
 		<ThemeProvider defaultMode="dark" defaultAccent="yellow">
@@ -44,7 +44,7 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
 					overlayBlur: 'small',
 				})}>
 					<Layout>
-					<Component {...pageProps} />
+						<Component {...pageProps} />
 					</Layout>
 				</RainbowKitProvider>
 			</WagmiConfig>
