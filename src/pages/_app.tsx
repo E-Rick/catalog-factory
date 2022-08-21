@@ -3,6 +3,7 @@ import { darkTheme, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/ra
 import { AppProps } from 'next/app'
 import 'degen/styles'
 import '../styles/index.css'
+import '../styles/marquee.scss'
 import '../styles/theme.scss'
 import '../styles/progress.css';
 import '@rainbow-me/rainbowkit/styles.css'
