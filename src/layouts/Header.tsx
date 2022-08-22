@@ -3,6 +3,7 @@ import { Box, Stack } from 'degen';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { NextLink } from '@/components/NextLink';
 import { APP_NAME } from '@/utils/consts';
+import Marquee from '@/components/Marquee';
 
 /**
  * Header component for the Navigation of the application
@@ -24,18 +25,15 @@ export const Header: FC = () => {
 				<Box id='nav' marginBottom='6'>
 					<Stack direction='horizontal' justify='space-between' align='center'>
 						<NextLink href='/'>
-							{/* <Image src='/xxx.svg' height={50} width={50} /> */}
 							<p>{APP_NAME}</p>
 						</NextLink>
 						<Stack direction='horizontal' align='center'>
-							<NextLink href="/create">
-								Create a Music NFT
-							</NextLink>
 							<ConnectButton chainStatus="icon" accountStatus="avatar" />
 						</Stack>
 					</Stack>
 				</Box>
 			</Box>
+			<Marquee pauseOnHover style={{ fontSize: 24, marginBottom: 24 }} speed={40} gradient={false} gradientColor={[248, 251, 253]}>Artists should own their music.    Metadata should work cross-platform.  </Marquee>
 		</>
 	);
 };
