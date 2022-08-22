@@ -279,9 +279,7 @@ const MintForm = () => {
 							type="number"
 							{...register('bpm')}
 						/>
-						{/* The key of the track */}
-						{/* Project Information */}
-						<FieldSet legend='Project'>
+						<FieldSet legend='Project Metadata'>
 							<Input
 								name='project'
 								label="Project Title"
@@ -331,14 +329,17 @@ const MintForm = () => {
 									}}
 
 								/>
-								<Text color='textTertiary'>Artwork for the project (e.g. an album cover)</Text>
+								<Box paddingLeft='4'>
+
+									<Text color='textTertiary'>Artwork for the project (e.g. an album cover)</Text>
+								</Box>
 							</Stack>
 						</FieldSet>
 
 					</FieldSet>
 					<Box marginTop="8">
 						<Button tone='accent' width="full" type="submit" disabled={minting} loading={minting}>
-							{minting ? 'Minting..' : 'Press your record'}
+							{minting ? 'Minting..' : 'Mint your Music NFT™'}
 						</Button>
 					</Box>
 				</Stack>

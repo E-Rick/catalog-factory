@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 			<Stack align='center' direction='vertical' space='12'>
 				<Box marginTop='10'>
 					<Text size='headingOne' align='center'>
-						Bring your <Sparkles>Music NFTs.</Sparkles>
+						Bring your <Sparkles>Music NFTs™</Sparkles>
 					</Text>
 					<Text size='large' align='center'>Our music factory makes it easy to create an Music NFTs™ with metadata that works for the whole ecosystem.</Text>
 				</Box>

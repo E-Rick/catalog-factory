@@ -62,7 +62,7 @@ const music_metadata = {
 	},
 };
 
-const createMusicMetadata = ({ artist, name, description, song, image, trackNumber, projectArtwork,projectDescription,projectTitle }: FormData) => {
+const createMusicMetadata = ({ artist, name, description, song, image, license, trackNumber, projectArtwork, upc, projectDescription, projectTitle, bpm, key, externalUrl, recordLabel, songDuration, publisher, projectType }: FormData) => {
 	const musicMetadata = {
 		name: `${artist} - ${name}`, // artist - song title
 		description,
@@ -72,39 +72,44 @@ const createMusicMetadata = ({ artist, name, description, song, image, trackNumb
 		losslessAudio: song,
 		animation_url: song,
 		version: 'catalog-20220222',
-		duration: 0,
+		duration: songDuration ?? 0,
 		trackNumber,
 		genre: '', // classical / jazz / pop / rock / hiphop / etc.
 		tags: [], // ['sagrado', 'cc0', 'el capitan']
-		bpm: 0, // 120
-		key: '', // C
-		license: '', // CC0
+		bpm: bpm ?? 120, // 120
+		key: key ?? '', // C
+		license: license ?? '', // CC0
 		locationCreated: '', // Bueno Aires, Argentina
-		external_url: '', // https://www.npmjs.com/package/onchain-music-metadata
+		external_url: externalUrl ?? '', // https://www.npmjs.com/package/onchain-music-metadata
 		artwork: {
 			uri: image,
 			mimeType: image.type,
 		},
 		project: {
-			title: projectTitle,
+			title: projectTitle ?? '',
 			artwork: {
 				uri: projectArtwork,
 				mimeType: projectArtwork.type,
 			},
-			description: projectDescription,
+			description: projectDescription ?? '',
+			type: projectType ?? '',
+			originalReleaseDate: '', // 04-20-2022
+			recordLabel: recordLabel ?? '', // sweetman.eth record label
+			publisher: publisher ?? '', // sweetman.eth publishing
+			upc: upc ?? '', // 03600029145
 		},
 		attributes: {
 			artist,
 			project: projectTitle, // Sweets Beats
-			bpm: 0, // 120
-			key: '', // C
+			bpm: bpm ?? 0, // 120
+			key: key ?? '', // C
 			genre: '', // rock / pop / etc.
 			recordLabel: '', // sweetman.eth record label
 			license: '', // CC0
 		},
 		originalReleaseDate: '', // 04-20-2022e
-		recordLabel: '', // sweetman.eth record label
-		publisher: '', // sweetman.eth publishing
+		recordLabel: recordLabel ?? '', // sweetman.eth record label
+		publisher: publisher ?? '', // sweetman.eth publishing
 		credits: [], // [{ name: 'sweetman.eth', collaboratorType: 'creator'}]
 	};
 	console.log('CREATING MUSIC METADATA', musicMetadata);
