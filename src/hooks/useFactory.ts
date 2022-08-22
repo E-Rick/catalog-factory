@@ -12,12 +12,12 @@ export function useFactory() {
   const { data: signer } = useSigner()
 
   const catalogFactoryContract = useContract({
-    addressOrName: getFactoryAddress(chain.id),
+    addressOrName: getFactoryAddress(chain?.id),
     contractInterface: contractInterface,
     signerOrProvider: signer,
   })
   const moduleManagerContract = useContract({
-    addressOrName: getZoraModuleManagerAddress(chain.id),
+    addressOrName: getZoraModuleManagerAddress(chain?.id),
     contractInterface: moduleManagerContractInterface,
     signerOrProvider: signer,
   })
