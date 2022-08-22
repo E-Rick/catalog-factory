@@ -25,6 +25,15 @@ export type FormData = {
 	projectTitle: string
 	projectDescription: string
 	projectArtwork: File
+	songDuration: number
+	projectType: string
+	upc: string
+	recordLabel: string
+	bpm: number
+	externalUrl: string
+	publisher: string
+	key: string
+	license: string
 }
 
 const MintForm = () => {
@@ -44,40 +53,49 @@ const MintForm = () => {
 
 	// Form submission handler that uploads metadata to NFT.Storage
 	const onSubmit: SubmitHandler<FormData> = async (data) => {
-		setMinting(true) // disables button while minting
-		const metadata = createMusicMetadata(data)
+		try {
 
-		// Pin the music metadata and return the new metadata with ipfs urls
-		const client = new NFTStorage({ token: process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY })
-		const ipfs = await client.store(metadata)
-		console.log("🚀 ~ file: MintForm.tsx ~ line 47 ~ constonSubmit:SubmitHandler<FormData>= ~ ipfs", ipfs)
+			setMinting(true) // disables button while minting
+			const metadata = createMusicMetadata(data)
 
-		console.log('IPFS URL for the metadata:', ipfs.url)
+			// Pin the music metadata and return the new metadata with ipfs urls
+			const client = new NFTStorage({ token: process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY })
+			const ipfs = await client.store(metadata)
+			console.log("🚀 ~ file: MintForm.tsx ~ line 47 ~ constonSubmit:SubmitHandler<FormData>= ~ ipfs", ipfs)
 
-		// askPrice is a number from input type
-		const askPrice = parseEther(data.askPrice.toString() || '0').toString()
-		const isApproved = await checkAskModuleApproved()
+			console.log('IPFS URL for the metadata:', ipfs.url)
 
-		if (!isApproved) {
-			console.log('not approved')
+			// askPrice is a number from input type
+			const askPrice = parseEther(data.askPrice.toString() || '0').toString()
+			const isApproved = await checkAskModuleApproved()
+			console.log("🚀 ~ file: MintForm.tsx ~ line 64 ~ constonSubmit:SubmitHandler<FormData>= ~ isApproved", isApproved)
+
+
+			if (!isApproved) {
+				setMinting(false)
+				return
+			}
+			console.log('here')
+			const findersFee = (data.findersFeeBps || 0) * 100
+			await deployCatalog(ipfs.url, metadata.name, data.sellerFundsRecipient, askPrice, findersFee)
 			setMinting(false)
-			return
+		} catch (error) {
+			setMinting(false)
+			console.error(error)
 		}
 
-		const findersFee = (data.findersFeeBps || 0) * 100
-		await deployCatalog(ipfs.url, metadata.name, data.sellerFundsRecipient, askPrice, findersFee)
-		setMinting(false)
 	}
-
 	const checkAskModuleApproved = async () => {
+		console.log(chain.id)
 		let approved = await moduleManagerContract.isModuleApproved(address, getZoraAsksV1_1Address(chain?.id))
 		console.log("🚀 ~ file: MintForm.tsx ~ line 67 ~ checkAskModuleApproved ~ approved", approved)
 
-		if (!approved) {
+		if (approved === false) {
 			approved = await moduleManagerContract
 				.setApprovalForModule(getZoraAsksV1_1Address(chain?.id), true)
 				.then(async tx => {
-					await tx.wait()
+					const x = await tx.wait()
+					console.log('xx: ', x)
 					return true
 				})
 				.catch(err => {
@@ -106,6 +124,7 @@ const MintForm = () => {
 	useEffect(() => {
 		register('image', { required: true })
 		register('song', { required: true })
+		register('projectArtwork', { required: true })
 	}, [])
 
 	return (
@@ -116,7 +135,7 @@ const MintForm = () => {
 						<Input
 							id="artist"
 							label="Artist name"
-							placeholder="Name of artist"
+							placeholder="Kanye West"
 							{...register('artist', { required: true })}
 							error={errors.artist?.type === 'required' && 'Artist name is required'}
 						/>
@@ -129,28 +148,7 @@ const MintForm = () => {
 						/>
 						<Textarea id="description" label="Description" {...register('description', { required: true })} error={errors.description?.type === 'required' && 'Description is required'}></Textarea>
 						{/* todo: change out the suffix to matic when network is switched */}
-						<Input
-							name='askPrice'
-							label="Ask Price"
-							step="0.000001"
-							placeholder="0.01"
-							suffix={chain?.nativeCurrency?.symbol}
-							type="number"
-							{...register('askPrice', { required: true })}
-							error={errors.askPrice?.type === 'required' && 'Ask price is required'}
-						/>
-						<Input
-							name='findersFeeBps'
-							label="Finder's Fee"
-							description={`Finder's fee incentives the market to find buyers of your NFT. https://zine.zora.co/zora-v3 to Learn more.`}
-							step="1"
-							placeholder="5"
-							min={0}
-							suffix="%"
-							type="number"
-							{...register('findersFeeBps', { required: true })}
-							error={errors.findersFeeBps?.type === 'required' && 'Ask price is required'}
-						/>
+
 						<MediaPicker
 							compact
 							maxSize={50}
@@ -176,25 +174,40 @@ const MintForm = () => {
 								setValue('image', e)
 							}}
 						/>
-
+						{/*  */}
 						<Input
-							description="The  that will receive any withdrawals and royalties. It can be your personal wallet, a multi-signature wallet, or an external splits contract."
+							description="The wallet address that will receive any withdrawals and royalties. It can be your personal wallet, a multi-signature wallet, or an external splits contract."
 							label="Seller fund recipient"
 							placeholder={'Enter an address'}
 							{...register('sellerFundsRecipient', { required: true })}
 							error={errors.sellerFundsRecipient?.type === 'required' && 'Seller fund recipient is required'}
 						/>
-
 						<Input
-							description="The  that will receive any withdrawals and royalties. It can be your personal wallet, a multi-signature wallet, or an external splits contract."
-							label="Track Number"
-							placeholder={'1'}
-							{...register('trackNumber', { required: true })}
-							error={errors.trackNumber?.type === 'required' && 'Track number is required'}
+							name='askPrice'
+							label="Ask Price"
+							step="0.000001"
+							description="The price of your NFT"
+							placeholder="0.01"
+							suffix={chain?.nativeCurrency?.symbol}
+							type="number"
+							{...register('askPrice', { required: true })}
+							error={errors.askPrice?.type === 'required' && 'Ask price is required'}
+						/>
+						<Input
+							name='findersFeeBps'
+							label="Finder's Fee"
+							description={`Finder's fee incentives the market to find buyers of your NFT. https://zine.zora.co/zora-v3 to Learn more.`}
+							step="1"
+							placeholder="5"
+							min={0}
+							suffix="%"
+							type="number"
+							{...register('findersFeeBps', { required: true })}
+							error={errors.findersFeeBps?.type === 'required' && 'Ask price is required'}
 						/>
 						<Input
 							name='creatorsShare'
-							label="Creator's Share"
+							label="Creator's Royalties"
 							description={`The royalties you earn on each sale`}
 							step="1"
 							placeholder="10"
@@ -205,36 +218,123 @@ const MintForm = () => {
 							error={errors.creatorsShare?.type === 'required' && 'Creator`s Share is required'}
 						/>
 						<Input
-							name='project'
-							label="Project Title"
-							description={`Describes the body of work the record is a part of (e.g. an album, EP, or compilation). The name of the project this record is on.`}
-
-							{...register('projectTitle', { required: true })}
-							error={errors.projectTitle?.type === 'required' && 'Project`s Title is required'}
+							name='trackNumber'
+							label="Track Number"
+							description={`The place which the track appears in its project (e.g. track 4 off an album)`}
+							{...register('trackNumber')}
 						/>
-						<Stack space='2'>
+						<Input
+							name='songDuration'
+							label="Song Duration"
+							suffix='seconds'
+							description={`Length of the audio file in seconds (must be > 1ms)`}
+							{...register('songDuration')}
+						/>
+						{/* The external url of the track */}
+						<Input
+							name='externalUrl'
+							label="External Url"
+							placeholder='wrecs.studio'
+							description={`The external url of the track. Shows as a link on Opensea. Could be your own website.`}
+							{...register('externalUrl', { required: true })}
+							error={errors.externalUrl?.type === 'required' && 'External URL is required'}
+						/>
+						<Input
+							name='key'
+							label="Key"
+							placeholder='C'
+							description={`The key of the track`}
+							{...register('key')}
+						/>
+						<Input
+							name='recordLabel'
+							label="Record Label"
+							placeholder='WRECS LLC'
+							description={`The record label of the track`}
+							{...register('recordLabel')}
+						/>
+						<Input
+							name='license'
+							label="License"
+							placeholder='CC0'
+							description={`The license of the track.
+                Examples: CC-BY-NC-ND,
+                CC-BY-NC
+                CC-BY-SA,
+                CC-BY-ND,
+                CC-BY,
+                CC0,
+                PD,
+                Other`}
+							{...register('license')}
+						/>
+						<Input
+							name='bpm'
+							label="Beats per minute"
+							description={`The BPM of the track`}
+							step="1"
+							placeholder="5"
+							min={0}
+							suffix="BPM"
+							type="number"
+							{...register('bpm')}
+						/>
+						{/* The key of the track */}
+						{/* Project Information */}
+						<FieldSet legend='Project'>
+							<Input
+								name='project'
+								label="Project Title"
+								description={`Describes the body of work the record is a part of (e.g. an album, EP, or compilation). The name of the project this record is on.`}
 
-							<MediaPicker
-								required
-
-								compact
-								accept="image/jpeg, image/png, image/webp, image/gif"
-								label="Project Artwork"
-								error={errors.image?.type === 'custom' && errors.image.message}
-								onError={(e) => setError('image', { type: 'custom', message: e })}
-								onChange={e => {
-									clearErrors('image')
-									setValue('image', e)
-								}}
-
+								{...register('projectTitle')}
+								error={errors.projectTitle?.type === 'required' && 'Project`s Title is required'}
 							/>
-							<Text color='textTertiary'>Artwork for the project (e.g. an album cover)</Text>
-						</Stack>
-						{/* <DatePicker
-							selected={date}
-							onChange={(date:Date) => setDate(date)} //only when value has changed
-						/> */}
-						<Textarea id="projectDescription" label="Project description" {...register('projectDescription', { required: true })} error={errors.projectDescription?.type === 'required' && 'Project description is required'}></Textarea>
+							<Input
+								name='projectType'
+								label="Project Type"
+								placeholder='Genesis'
+								description={`The type of project. Ex. EP, LP, Compilation, Single, Other, Mixtape`}
+								{...register('projectType')}
+							/>
+							<Input
+								name='recordLabel'
+								label="Record Label"
+								description={`Describes the body of work the record is a part of (e.g. an album, EP, or compilation). The name of the project this record is on.`}
+								{...register('recordLabel')}
+							/>
+							<Input
+								name='upc'
+								label="UPC"
+								description={`The UPC of the project`}
+
+								{...register('upc')}
+							/>
+							<Input
+								name='publisher'
+								label="Publisher"
+								description={`The publisher of the project.`}
+								{...register('publisher')}
+							/>
+							<Textarea id="projectDescription" label="Project description" {...register('projectDescription')}></Textarea>
+							<Stack space='2'>
+								<MediaPicker
+									required
+									compact
+									accept="image/jpeg, image/png, image/webp, image/gif"
+									label="Project Artwork"
+									error={errors.image?.type === 'custom' && errors.image.message}
+									onError={(e) => setError('projectArtwork', { type: 'custom', message: e })}
+									onChange={e => {
+										clearErrors('projectArtwork')
+										setValue('projectArtwork', e)
+									}}
+
+								/>
+								<Text color='textTertiary'>Artwork for the project (e.g. an album cover)</Text>
+							</Stack>
+						</FieldSet>
+
 					</FieldSet>
 					<Box marginTop="8">
 						<Button tone='accent' width="full" type="submit" disabled={minting} loading={minting}>
