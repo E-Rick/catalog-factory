@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback } from "react";
 
-export const range = (start, end, step = 1) => {
+export const range = (start: number, end?: number, step = 1) => {
   let output = [];
   if (typeof end === 'undefined') {
     end = start;
@@ -12,9 +12,11 @@ export const range = (start, end, step = 1) => {
   return output;
 };
 
-// Utility helper for random number generation
-export const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+// Each user has a unique page based on the wallet address. 
 
+// Utility helper for random number generation
+export const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
+// 
 // Reference: https://www.joshwcomeau.com/snippets/react-hooks/use-random-interval/
 export default function useRandomInterval(callback, minDelay, maxDelay) {
   const timeoutId = useRef(null);
