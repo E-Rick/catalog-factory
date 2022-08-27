@@ -1,6 +1,6 @@
 import { APP_NAME } from '@/utils/consts'
-import { darkTheme, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
-import { AppProps } from 'next/app'
+import { getDefaultWallets, lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import type { AppProps } from 'next/app'
 import 'degen/styles'
 import '../styles/index.css'
 import '../styles/marquee.scss'
@@ -37,12 +37,12 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
 	return (
 		<ThemeProvider defaultMode="dark" defaultAccent="yellow">
 			<WagmiConfig client={wagmiClient}>
-				<RainbowKitProvider chains={chains} theme={darkTheme({
-					accentColor: vars.colors.yellow,
-					accentColorForeground: vars.colors.white,
+				<RainbowKitProvider chains={chains} theme={lightTheme({
+					accentColor: '#dda15e',
+					accentColorForeground: 'vars.colors.white',
 					borderRadius: 'small',
 					fontStack: 'system',
-					overlayBlur: 'small',
+					overlayBlur: 'large',
 				})}>
 					<Layout>
 						<Component {...pageProps} />

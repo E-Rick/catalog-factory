@@ -2,23 +2,24 @@ import React, { Component } from 'react';
 
 import CreatableSelect from 'react-select/creatable';
 import { ActionMeta, OnChangeValue } from 'react-select';
-import { ColourOption, colourOptions } from '@/utils/data';
 import makeAnimated from 'react-select/animated';
+import { genreOptions, GenreOption } from '../utils/data';
 
 const animatedComponents = makeAnimated();
 
 const customStyles = {
   option: (provided, state) => ({
     ...provided,
-    borderBottom: '1px dotted pink',
-    color: state.isSelected ? 'red' : 'blue',
-    padding: 20,
+    borderBottom: '1px dotted gray',
+    color: state.isSelected ? 'red' : 'black',
+    padding: 12,
   }),
   control: (provided) => ({
     ...provided,
     // none of react-select's styles are passed to <Control />
     // width: 200,
   }),
+  input: (styles) => ({ ...styles, }),
   singleValue: (provided, state) => {
     const opacity = state.isDisabled ? 0.5 : 1;
     const transition = 'opacity 300ms';
@@ -27,10 +28,11 @@ const customStyles = {
   }
 }
 
+
 export default class CreatableMulti extends Component<{}> {
   handleChange = (
-    newValue: OnChangeValue<ColourOption, true>,
-    actionMeta: ActionMeta<ColourOption>
+    newValue: OnChangeValue<GenreOption, true>,
+    actionMeta: ActionMeta<GenreOption>
   ) => {
     console.group('Value Changed');
     console.log(newValue);
@@ -43,7 +45,7 @@ export default class CreatableMulti extends Component<{}> {
         isMulti
         styles={customStyles}
         onChange={this.handleChange}
-        options={colourOptions}
+        options={genreOptions}
         closeMenuOnSelect={false}
         components={animatedComponents}
         theme={(theme) => ({
@@ -55,7 +57,7 @@ export default class CreatableMulti extends Component<{}> {
             primary: 'black',
           },
         })}
-        defaultValue={[colourOptions[4], colourOptions[5]]}
+        defaultValue={[genreOptions[0], genreOptions[1]]}
       />
     );
   }

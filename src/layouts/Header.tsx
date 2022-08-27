@@ -33,7 +33,15 @@ export const Header: FC = () => {
 					</Stack>
 				</Box>
 			</Box>
-			<Marquee pauseOnHover style={{ fontSize: 24, marginBottom: 24 }} speed={40} gradient={false} gradientColor={[248, 251, 253]}>Artists should own their music.    Metadata should work cross-platform.  </Marquee>
+			<Marquee
+				pauseOnHover
+				style={{ fontSize: 24, marginBottom: 24 }}
+				speed={40}
+				gradientWidth={'10%'}
+				gradientColor={[96, 108, 56]}>
+				&nbsp;🙂 Artists should own their music 💿 Metadata should work cross-platform ❤ Future proof your Music NFTs 💿
+				Free IPFS pinning
+			</Marquee>
 		</>
 	);
 };

@@ -5,10 +5,12 @@ import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAccount } from 'wagmi'
 import { MediaPicker } from './MediaPicker.tsx'
+import React from 'react'
 
 import { useFactory } from '@/hooks/useFactory'
 import { parseEther } from 'ethers/lib/utils'
 import { getZoraAsksV1_1Address } from '@/utils/helpers'
+import CreatableMulti from './CreateableMulti'
 
 export type FormData = {
 	artist: string
@@ -34,6 +36,7 @@ export type FormData = {
 	publisher: string
 	key: string
 	license: string
+	genre: string[]
 }
 
 const MintForm = () => {
@@ -54,7 +57,7 @@ const MintForm = () => {
 	// Form submission handler that uploads metadata to NFT.Storage
 	const onSubmit: SubmitHandler<FormData> = async (data) => {
 		try {
-
+			console.log(data)
 			setMinting(true) // disables button while minting
 			const metadata = createMusicMetadata(data)
 
@@ -132,6 +135,7 @@ const MintForm = () => {
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Stack space="10">
 					<FieldSet legend="Create a song">
+
 						<Input
 							id="artist"
 							label="Artist name"
@@ -239,6 +243,8 @@ const MintForm = () => {
 							{...register('externalUrl', { required: true })}
 							error={errors.externalUrl?.type === 'required' && 'External URL is required'}
 						/>
+						<label>Genre</label>
+						<CreatableMulti {...register('genre')} />
 						<Input
 							name='key'
 							label="Key"
